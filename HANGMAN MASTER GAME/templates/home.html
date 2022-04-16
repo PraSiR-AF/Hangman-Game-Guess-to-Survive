@@ -1,0 +1,59 @@
+{% extends 'index.html' %}
+
+{% block content %}
+<link rel="stylesheet" href='/static/style1.css' />
+
+<div class='box_left'>
+  <div class='wave -one'></div>
+  <div class='wave -two'></div>
+  <div class='wave -three'></div>
+</div>
+
+<div class='box_right'>
+  <div class='wave -one'></div>
+  <div class='wave -two'></div>
+  <div class='wave -three'></div>
+</div>
+
+<form action="{{ url_for('new_game') }}" class="form-inline">
+    <div class="form-group vspace" >
+      <div class="col_1">
+      <input name="player" class="background_effect" required="required"
+             placeholder="Player name" maxlength="12" type="text">
+        <span class="focus-bg"></span></div>
+             <br>
+      <div style="margin-top: 10px;">
+      <label>Choose difficulty:</label>
+      <select class="arrow" id="level" name="level">
+        <option value="easy">Easy</option>
+        <option value="medium">Medium</option>
+        <option value="hard">Hard</option>
+      </select>
+    </div>
+             <br>
+      <button class="draw hover_button color_gradient" type="submit">Play!</button>
+    </div>
+  </form>
+
+  <div class="panel panel-default vspace">
+    <div class="panel-heading">Top 10</div>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Player</th>
+          <th>Word</th>
+          <th>Errors</th>
+          <th>Points</th>
+      <tbody>
+        {% for game in games %}
+          <tr>
+            <td>{{ loop.index }}</td>
+            <td>{{ game.player }}</td>
+            <td class="text-success">{{ game.current }}</td>
+            <td class="text-danger spaced">{{ game.errors }}</td>
+            <td>{{ game.points }}</td>
+        {% endfor %}
+    </table>
+  </div>
+{% endblock %}
